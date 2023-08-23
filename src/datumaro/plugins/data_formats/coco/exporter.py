@@ -11,6 +11,7 @@ from enum import Enum, auto
 from io import BufferedWriter
 from itertools import chain, groupby
 from typing import Dict, List, Optional, Type, Union
+import shutil
 
 import pycocotools.mask as mask_utils
 from json_stream.writer import streamable_dict, streamable_list
@@ -920,7 +921,8 @@ class CocoExporter(Exporter):
 
                 if task_conv.is_empty() and (not self._tasks or self._patch):
                     if task == CocoTask.panoptic:
-                        os.rmdir(self._segmentation_dir)
+                        # os.rmdir(self._segmentation_dir)
+                        shutil.rmtree(self._segmentation_dir)
                     if self._patch:
                         if osp.isfile(ann_file):
                             # Remove subsets that became empty
